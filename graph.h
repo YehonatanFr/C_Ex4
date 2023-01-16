@@ -24,4 +24,12 @@ void deleteGraph_cmd(pnode* head);
 void shortsPath_cmd(pnode head);
 void TSP_cmd(pnode head);
 
+void CreateLinkedList (int n, pnode *head);
+void UpdateEdge (pnode *head, int sorceEdge, int EdgeTarget, int weight);
+void PrintGraph(node **head);
+node* FindPnode(node **head, int num);
+void FreeEdge(node *sorce);
+pnode NewNode (int num, pnode next);
+void printGraph(pnode head);
+
 #endif

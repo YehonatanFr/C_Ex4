@@ -18,6 +18,8 @@ graph: main.o edges.o nodes.o
 
 .PHONY: clean all
 
+new: clean all
+
 clean:
 	rm  -f *.o graph
 

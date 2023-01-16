@@ -16,12 +16,15 @@ pedge NewEdge(pnode dest, int weight, pedge next)
 node* FindPnode(node **head, int num)
 {
     node *p = *head;
-    for(int i = 0; i<num; i++)
+    while(p != NULL) 
     {
+        if(p->node_num == num)
+        {
+            return p;
+        }
         p = p->next;
     }
-    p = p->next;
-    return p;
+    return NULL;
 }
 
 

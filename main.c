@@ -2,32 +2,61 @@
 #include <stdlib.h>
 #include "graph.h"
 
-void CreateLinkedList (int n, pnode *head);
+void printGraph(pnode head)
+{
+    printf("Graph representation [src]--(weight)-->[dest]\n");
+    while(head != NULL)
+    {
+        pedge current_edge = head->edges;
+        if(current_edge == NULL)
+        {
+            printf("[%d]\n", head->node_num);
+        }
+        while(current_edge != NULL)
+        {
+            printf("[%d]--(%d)-->[%d]\n", head->node_num, current_edge->weight, current_edge->endpoint->node_num);
+            current_edge = current_edge->next;
+        }
+        head = head->next;
+    }
+}
 
-void UpdateEdge (pnode *head, int sorceEdge, int EdgeTarget, int weight);
-
-void PrintGraph(node **head);
-
-// void build_graph_cmd(pnode *head)
-// {
-//     int numNode;
-//     printf("Hey im in function\n");
-//     if(scanf("%d",&numNode) == 1)
-//     {
-//         printf("Scanf numNode work\n");
-//     }
-//     else
-//     {
-//         printf("Error\n");
-//     }
-    
-//     CreateLinkedList(numNode, head);
-// }
+void Do_B (node **Head, node *sorce)
+{
+    int sorceEdge, EdgeTarget, weight;
+    scanf("%d",&sorceEdge);
+    sorce = FindPnode(Head, sorceEdge);
+    if( sorce != NULL)
+    {
+        FreeEdge(sorce);
+        while(scanf("%d",&EdgeTarget) == 1)
+        {
+            scanf("%d",&weight);
+            UpdateEdge (Head, sorceEdge, EdgeTarget, weight);
+        }
+    }
+    else
+    {
+        node *newEdge = NewNode(sorceEdge, NULL);
+        node *temp = *Head;
+        while(temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = newEdge;
+        while(scanf("%d",&EdgeTarget) == 1)
+        {
+            scanf("%d",&weight);
+            UpdateEdge (Head, sorceEdge, EdgeTarget, weight);
+        }
+    }
+}
 
 int main()
 {
 
     pnode *Head=(pnode*)malloc(sizeof(pnode));
+    node *sorce =(node*)malloc(sizeof(node));
     char choice;
     int sorceEdge, EdgeTarget, weight;
     int numNode;
@@ -41,6 +70,7 @@ int main()
             PrintGraph(Head);
             // deleteGraph_cmd(head);
         }
+        
         if(choice == 'n')
         {
             scanf("%d",&sorceEdge);
@@ -51,8 +81,13 @@ int main()
             }
         }
 
-
+        if(choice == 'B')
+        {
+            Do_B(Head, sorce);
+        }
     }
+
+    printGraph(*Head);
     
     free(Head);
     return 0;

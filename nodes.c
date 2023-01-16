@@ -54,3 +54,7 @@ void PrintGraph(node **head)
     printf("\n");
 }
 
+void FreeEdge(node *sorce)
+{
+    sorce->edges = NULL;
+}
