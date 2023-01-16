@@ -5,16 +5,17 @@
 pedge NewEdge(pnode dest, int weight, pedge next)
 {
 
-    pedge temp = (pedge) malloc (sizeof(edge));
+    edge *temp = (edge*) malloc (sizeof(edge));
     temp->weight = weight;
     temp->next = next;
     temp->endpoint = dest;
+    
     return temp;
 }
 
-pnode FindPnode(pnode *head, int num)
+node* FindPnode(node **head, int num)
 {
-    pnode p = *head ;
+    node *p = *head;
     for(int i = 0; i<num; i++)
     {
         p = p->next;
@@ -24,13 +25,13 @@ pnode FindPnode(pnode *head, int num)
 }
 
 
-void UpdateEdge (pnode *head, int sorceEdge, int EdgeTarget, int weight) 
+void UpdateEdge (node **head, int sorceEdge, int EdgeTarget, int weight) 
 {
-    pnode src = FindPnode(head, sorceEdge);
-    pnode dst = FindPnode(head, EdgeTarget);
+    node *src = FindPnode(head, sorceEdge);
+    node *dst = FindPnode(head, EdgeTarget);
 
-    pedge newEdge = NewEdge(dst, weight, NULL);
-    pedge p = NULL;
+    edge *newEdge = NewEdge(dst, weight, NULL);
+    edge *p = NULL;
 
     if(src->edges == NULL)
     {
@@ -38,13 +39,17 @@ void UpdateEdge (pnode *head, int sorceEdge, int EdgeTarget, int weight)
     }
     else
     {
-        p = src->edges->next;
+        p = src->edges;
         while(p->next != NULL)
         {
             p = p->next;
         }
         p->next = newEdge;
     }
+
+    src = NULL;
+    dst = NULL;
+    newEdge = NULL;
 }
 
 

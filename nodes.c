@@ -7,23 +7,22 @@
 pnode NewNode (int num, pnode next)
 {
 
-    pnode temp = (pnode) malloc (sizeof(node));
+    node *temp = (node*) malloc (sizeof(node));
     temp->node_num = num;
     temp->edges = NULL;
     temp->next = next;
     return temp;
 }
 
-pnode CreateLinkedList (int n)
+void CreateLinkedList (int n, node **head)
 {
-    pnode *head = NULL;
-    pnode p = NULL;
+    node *p = NULL;
 
     for(int i = 0; i<n; i++)
     {
-        pnode temp = NewNode(i,NULL);
+        node *temp = NewNode(i,NULL);
 
-        if(head == NULL)
+        if(*head == NULL)
         {
             *head = temp;
         }
@@ -37,12 +36,11 @@ pnode CreateLinkedList (int n)
             p->next = temp;
         }
     }
-    return *head;
 }
 
-void PrintGraph(pnode head)
+void PrintGraph(node **head)
 {
-    pnode p = head;
+    node *p = *head;
     if(p->next != NULL)
     {
         printf("%d", p->node_num);
