@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "graph.h"
 
 
@@ -15,7 +16,7 @@ pnode NewNode (int num, int *next)
 
 pnode CreateLinkedList (int n)
 {
-    pnode head = NULL;
+    pnode *head = NULL;
     pnode p = NULL;
 
     for(int i = 0; i<n; i++)

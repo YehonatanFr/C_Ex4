@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "graph.h"
 
 pedge NewEdge(pnode dest, int weight, int *next)
@@ -11,9 +12,9 @@ pedge NewEdge(pnode dest, int weight, int *next)
     return temp;
 }
 
-pnode FindPnode(pnode head, int num)
+pnode FindPnode(pnode *head, int num)
 {
-    pnode p = head;
+    pnode p = *head ;
     for(int i = 0; i<num; i++)
     {
         p = p->next;
@@ -23,9 +24,9 @@ pnode FindPnode(pnode head, int num)
 }
 
 
-void UpdateEdge (pnode head, int sourceEdge, int EdgeTarget, int weight) 
+void UpdateEdge (pnode *head, int sorceEdge, int EdgeTarget, int weight) 
 {
-    pnode src = FindPnode(head, sourceEdge);
+    pnode src = FindPnode(head, sorceEdge);
     pnode dst = FindPnode(head, EdgeTarget);
 
     pedge newEdge = NewEdge(dst, weight, NULL);
