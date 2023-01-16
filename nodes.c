@@ -4,7 +4,7 @@
 
 
 
-pnode NewNode (int num, int *next)
+pnode NewNode (int num, pnode next)
 {
 
     pnode temp = (pnode) malloc (sizeof(node));
@@ -25,11 +25,11 @@ pnode CreateLinkedList (int n)
 
         if(head == NULL)
         {
-            head = temp;
+            *head = temp;
         }
         else
         {
-            p = head;
+            p = *head;
             while( p->next != NULL)
             {
                 p = p->next;
@@ -37,7 +37,7 @@ pnode CreateLinkedList (int n)
             p->next = temp;
         }
     }
-    return head;
+    return *head;
 }
 
 void PrintGraph(pnode head)

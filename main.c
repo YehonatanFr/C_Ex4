@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "graph.h"
 
+pnode CreateLinkedList (int n);
+void UpdateEdge (pnode *head, int sorceEdge, int EdgeTarget, int weight) ;
+
 void build_graph_cmd(pnode *head)
 {
     int numNode = 0;

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "graph.h"
 
-pedge NewEdge(pnode dest, int weight, int *next)
+pedge NewEdge(pnode dest, int weight, pedge next)
 {
 
     pedge temp = (pedge) malloc (sizeof(edge));
