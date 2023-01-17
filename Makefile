@@ -13,8 +13,11 @@ edges.o: edges.c graph.h
 nodes.o: nodes.c graph.h
 	$(CC) $(Flags) -fPIC -c nodes.c
 
-graph: main.o edges.o nodes.o
-	$(CC) $(FLAGS) -o graph main.o edges.o nodes.o -lm
+algo.o: algo.c graph.h
+	$(CC) $(Flags) -fPIC -c algo.c
+
+graph: main.o edges.o nodes.o algo.o
+	$(CC) $(FLAGS) -o graph main.o edges.o nodes.o algo.o -lm
 
 .PHONY: clean all
 

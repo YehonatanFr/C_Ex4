@@ -121,3 +121,45 @@ void DeleteSingleEdge(edge **head, int NodeToDelete)
 
     free(temp);
 }
+
+// void deleteGraph_cmd(node **head) 
+// {
+//     if(*head == NULL)
+//     {
+//         return;
+//     }
+
+
+
+//     node *currentNode = *head;
+//     node *nextNode;
+
+//     // while (currentNode != NULL) {
+//     //     edge *currentEdge = NULL;
+//     //     currentEdge = currentNode->edges;
+//     //     edge *nextEdge = NULL;
+        
+//     //     while(currentEdge != NULL) {
+//     //         nextEdge = currentEdge->next;
+//     //         free(currentEdge);
+//     //         currentEdge = nextEdge;
+//     //     }
+        
+//     //     nextNode = currentNode->next;
+//     //     free(currentNode);
+//     //     currentNode = nextNode;
+//     // }
+//     head = NULL;
+// }
+
+
+void deleteGraph_cmd(pnode* head){
+    node *curr = *head;
+ 
+    while (curr != NULL ) {
+        *head = curr->next; 
+        DeleteEdges(&curr,curr ->node_num);
+        free(curr); 
+        curr=*head;
+    }
+}

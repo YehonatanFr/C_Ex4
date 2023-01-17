@@ -55,4 +55,47 @@ void UpdateEdge (node **head, int sorceEdge, int EdgeTarget, int weight)
     newEdge = NULL;
 }
 
+int FindMinWeight(edge **head)
+{
+    edge *temp = *head;
+    if(temp == NULL)
+    {
+        return -1;
+    }
+
+    int min = temp->weight;
+    temp = temp->next;
+
+    while(temp != NULL)
+    {
+        if(temp->weight < min)
+        {
+            min = temp->weight;
+        }
+        temp = temp->next;
+    }
+
+    return min;
+}
+
+void printMinWeight(node **head)
+{
+    node *current_edge = *head;
+    edge **tempHead;
+    int min = 0;
+
+    while (current_edge != NULL ) {
+        tempHead = &current_edge->edges;
+        min = FindMinWeight(tempHead);
+        if(min == -1)
+        {
+            printf("There is no edges from this %d vertex\n", current_edge->node_num);
+        }
+        else{
+            printf("The min weight of %d vertx is %d weight\n", current_edge->node_num, min);
+        }
+        current_edge = current_edge->next;
+    }
+}
+
 

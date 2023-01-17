@@ -64,11 +64,13 @@ int main()
     while(scanf("%c",&choice)!=EOF)
     {
         if(choice == 'A')
-        {
+        {   
+            deleteGraph_cmd(Head);
+            // Head = NULL; 
             scanf("%d",&numNode);   
             CreateLinkedList(numNode, Head);
             PrintGraph(Head);
-            // deleteGraph_cmd(head);
+            //deleteGraph_cmd(head);
         }
         
         if(choice == 'n')
@@ -83,21 +85,38 @@ int main()
 
         if(choice == 'B')
         {
-            printGraph(*Head);
+            // printGraph(*Head);
             Do_B(Head, sorce);
         }
 
         if(choice == 'D')
         {
-            printGraph(*Head);
+            // printGraph(*Head);
             scanf("%d",&NodeToDelet);
             DeleteEdges(Head, NodeToDelet);
             DeleteNode(Head, NodeToDelet);
         }
+        
+        if(choice == 'S')
+        {
+            // printGraph(*Head);
+            int dest, src;
+            scanf("%d %d", &src, &dest);
+            printf("Dijsktra shortest path: ");
+            dijkstra(Head, src, dest, 1);
+        }
+
+        if(choice == 'T')
+        {
+            // printGraph(*Head);
+            TSP(Head);
+        }
     }
 
     printGraph(*Head);
+    printMinWeight(Head);
 
     free(Head);
+    free(sorce);
     return 0;
 }
