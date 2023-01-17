@@ -66,7 +66,6 @@ int main()
         if(choice == 'A')
         {   
             deleteGraph_cmd(Head);
-            // Head = NULL; 
             scanf("%d",&numNode);   
             CreateLinkedList(numNode, Head);
             PrintGraph(Head);
