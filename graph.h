@@ -31,5 +31,8 @@ node* FindPnode(node **head, int num);
 void FreeEdge(node *sorce);
 pnode NewNode (int num, pnode next);
 void printGraph(pnode head);
+void DeleteEdges(node **head, int NodeToDelte);
+void DeleteNode(node **head, int NodeToDelete);
+void DeleteSingleEdge(edge **head, int NodeToDelete);
 
 #endif

@@ -54,12 +54,12 @@ void Do_B (node **Head, node *sorce)
 
 int main()
 {
-
     pnode *Head=(pnode*)malloc(sizeof(pnode));
     node *sorce =(node*)malloc(sizeof(node));
     char choice;
     int sorceEdge, EdgeTarget, weight;
     int numNode;
+    int NodeToDelet;
 
     while(scanf("%c",&choice)!=EOF)
     {
@@ -83,12 +83,21 @@ int main()
 
         if(choice == 'B')
         {
+            printGraph(*Head);
             Do_B(Head, sorce);
+        }
+
+        if(choice == 'D')
+        {
+            printGraph(*Head);
+            scanf("%d",&NodeToDelet);
+            DeleteEdges(Head, NodeToDelet);
+            DeleteNode(Head, NodeToDelet);
         }
     }
 
     printGraph(*Head);
-    
+
     free(Head);
     return 0;
 }
