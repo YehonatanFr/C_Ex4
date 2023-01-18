@@ -68,7 +68,7 @@ int main()
             deleteGraph_cmd(Head);
             scanf("%d",&numNode);   
             CreateLinkedList(numNode, Head);
-            PrintGraph(Head);
+            // PrintGraph(Head);
             //deleteGraph_cmd(head);
         }
         
@@ -112,8 +112,8 @@ int main()
         }
     }
 
-    printGraph(*Head);
-    printMinWeight(Head);
+    // printGraph(*Head);
+    // printMinWeight(Head);
 
     free(Head);
     free(sorce);
