@@ -1,6 +1,6 @@
 CC = gcc
 Ar = ar
-Flags = -Wall -ggdb3
+Flags = -Wall -g -ggdb3
 
 all: graph
 
@@ -16,11 +16,8 @@ nodes.o: nodes.c graph.h
 algo.o: algo.c graph.h
 	$(CC) $(Flags) -fPIC -c algo.c
 
-# main.o: main.c graph.h
-# 	gcc -o executable -std=c11 -Wall -ggdb3 main.c 
-
-graph: main.o edges.o nodes.o algo.o
-	$(CC) $(FLAGS) -o graph main.o edges.o nodes.o algo.o -lm
+graph: edges.o nodes.o main.o algo.o
+	$(CC) $(FLAGS) -o graph edges.o nodes.o main.o algo.o -lm
 
 .PHONY: clean all
 

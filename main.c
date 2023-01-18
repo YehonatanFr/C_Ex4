@@ -1,131 +1,157 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "graph.h"
 
-void printGraph(pnode head)
+int vertex = 0;
+
+typedef struct GRAPH_NODE_ *pnode;
+
+int main() 
 {
-    printf("Graph representation [src]--(weight)-->[dest]\n");
-    while(head != NULL)
+    int FLAG = 1;
+    node *head = NULL;
+    int c =0;
+    int first =1;
+    while (FLAG) 
     {
-        pedge current_edge = head->edges;
-        if(current_edge == NULL)
+        if(first) 
         {
-            printf("[%d]\n", head->node_num);
+            c = getchar();
         }
-        while(current_edge != NULL)
-        {
-            printf("[%d]--(%d)-->[%d]\n", head->node_num, current_edge->weight, current_edge->endpoint->node_num);
-            current_edge = current_edge->next;
+        switch (c) {
+            case 'A':
+                getchar();
+                pnode removi = head;
+                while(removi!= NULL)
+                {
+                    DeleteNode(&head , removi->node_num);
+                    removi = head;
+                }
+                scanf("%d", &vertex); // vertex graph.
+                char n;
+                scanf("%s", &n);
+                for (int i = 0; i < vertex; ++i) 
+                {
+                    int src_id;
+                    scanf("%d", &src_id);
+                    pnode node_data;//maybe not good declaration.
+                    if (i == 0) {
+                        head = NewNode(src_id);
+                        node_data = head;
+                    }
+                    pnode checker = head;
+                    while (checker) {
+                        if (checker->node_num == src_id) {
+                            break;
+                        }
+                        checker = checker->next;
+                    }
+                    if (!checker) {
+                        node_data = NewNode(src_id);
+                        if (!node_data) {
+                            exit(0);
+                        }
+                        pnode temp = head;
+                        while (temp->next) {
+                            temp = temp->next;
+                        }
+                        temp->next = node_data;
+                    } else {
+                        node_data = checker;
+                    }
+                    int dest;
+                    while (scanf("%d", &dest)) {
+                        pedge edge_data = NULL;
+                        int weight;
+                        scanf("%d", &weight);
+                        pnode destination = head;
+                        while (destination) 
+                        {
+                            if (destination->node_num == dest) 
+                            {
+                                break;
+                            }
+                            destination = destination->next;
+                        }
+                        if (destination) {
+                            edge_data = NewEdge(weight, destination);
+                            if (!edge_data) {
+                                exit(0);
+                            }
+                        } 
+                        else 
+                        {
+                            destination = NewNode(dest);
+                            if (!destination) {
+                                exit(0);
+                            } else {
+                                pnode temp = head;
+                                while (temp->next) {
+                                    temp = temp->next;
+                                }
+                                temp->next = destination;
+                            }
+                            edge_data = NewEdge(weight, destination);
+                            if (!edge_data) {
+                                exit(0);
+                            }
+                        }
+                        
+                        pedge temp = node_data->edges;
+                        if (!temp) {
+                            node_data->edges = edge_data;
+                        } else {
+                            while (temp->next) {
+                                temp = temp->next;
+                            }
+                            temp->next = edge_data;
+                        }
+                    }
+                    c = getchar();
+                    if (c != 'n') {
+                        first=0;
+                        break;
+                    }
+                }
+                break;
+            case 'B':
+                getchar();
+                int to_add;
+                scanf("%d", &to_add);
+                AddNode(&head, to_add);
+                first=1;
+                break;
+            case 'D':
+                getchar();
+                int node_to_remove;
+                scanf("%d", &node_to_remove);
+                DeleteNode(&head, node_to_remove);
+                first=1;
+                break;
+            case 'S':
+                getchar();
+                int dest, src;
+                scanf("%d %d", &src, &dest);
+                printf("Dijsktra shortest path: ");
+                dijkstra(&head, src, dest, 1);
+                first=1;
+                break;
+            case 'T':
+                getchar();
+                TSP(&head);
+                first=1;
+                break;
+            case ' ':
+                break;
+            default:
+                FLAG = 0;
+                break;
         }
-        head = head->next;
     }
-}
-
-void Do_B (node **Head, node *sorce)
-{
-    int sorceEdge, EdgeTarget, weight;
-    node *temp = NULL;
-
-    scanf("%d",&sorceEdge);
-    sorce = FindPnode(Head, sorceEdge);
-    if( sorce != NULL)
-    {
-        DeleteEdges(Head, sorce->node_num);
-
-        while(scanf("%d",&EdgeTarget) == 1)
-        {
-            scanf("%d",&weight);
-            UpdateEdge (Head, sorceEdge, EdgeTarget, weight);
-        }
+    node *removie = head;
+    while(removie!=NULL){
+        DeleteNode(&head , removie->node_num);
+        removie = head;
     }
-    else
-    {
-        node *newEdge = NewNode(sorceEdge, NULL);
-        temp = *Head;
-        while(temp->next != NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = newEdge;
-        while(scanf("%d",&EdgeTarget) == 1)
-        {
-            scanf("%d",&weight);
-            UpdateEdge (Head, sorceEdge, EdgeTarget, weight);
-        }
-    }
-
-    temp = NULL;
-    free(temp);
-    
-}
-
-int main()
-{
-    pnode *Head=(pnode*)malloc(sizeof(pnode));
-    node *sorce =(node*)malloc(sizeof(node));
-
-    char choice;
-    int sorceEdge, EdgeTarget, weight;
-    int numNode;
-    int NodeToDelet;
-
-    while(scanf("%c",&choice)!=EOF)
-    {
-        if(choice == 'A')
-        {   
-            deleteGraph_cmd(Head);
-            scanf("%d",&numNode);   
-            CreateLinkedList(numNode, Head);
-            // PrintGraph(Head);
-            //deleteGraph_cmd(head);
-        }
-        
-        if(choice == 'n')
-        {
-            scanf("%d",&sorceEdge);
-            while(scanf("%d",&EdgeTarget) == 1)
-            {
-                scanf("%d",&weight);
-                UpdateEdge (Head, sorceEdge, EdgeTarget, weight);
-            }
-        }
-
-        if(choice == 'B')
-        {
-            // printGraph(*Head);
-            Do_B(Head, sorce);
-        }
-
-        if(choice == 'D')
-        {
-            // printGraph(*Head);
-            scanf("%d",&NodeToDelet);
-            DeleteEdges(Head, NodeToDelet);
-            DeleteNode(Head, NodeToDelet);
-        }
-        
-        if(choice == 'S')
-        {
-            // printGraph(*Head);
-            int dest, src;
-            scanf("%d %d", &src, &dest);
-            printf("Dijsktra shortest path: ");
-            dijkstra(Head, src, dest, 1);
-        }
-
-        if(choice == 'T')
-        {
-            // printGraph(*Head);
-            TSP(Head);
-        }
-    }
-
-    // printGraph(*Head);
-    // printMinWeight(Head);
-
-    deleteGraph_cmd(Head);
-
-    free(Head);
-    free(sorce);
-    return 0;
 }
