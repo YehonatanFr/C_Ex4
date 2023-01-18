@@ -115,7 +115,7 @@ int main()
     // printGraph(*Head);
     // printMinWeight(Head);
 
-    
+    deleteGraph_cmd(Head);
     free(Head);
     free(sorce);
     return 0;
