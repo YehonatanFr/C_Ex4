@@ -80,6 +80,7 @@ int dijkstra(node **head , int src , int dest , int bool)
             printf("%d \n" , a);
         }
     }
+
     free(Queue);
     int ret = dist[dest];
     free(dist);
@@ -112,6 +113,7 @@ int arrayc(node **head, int values[], int len)
         }
         dst += dijk;
     }
+
     return dst;
 }
 
@@ -121,6 +123,7 @@ int min(const int arr[],int n)
     for (int i = 1; i <n; ++i) {
         if(arr[i]<arr[index]){index = i;}
     }
+    
     return index;
 }
 

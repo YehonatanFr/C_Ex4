@@ -36,39 +36,44 @@ void CreateLinkedList (int n, node **head)
             p->next = temp;
         }
     }
+
+    p = NULL;
+    free(p);
 }
 
-void PrintGraph(node **head)
-{
-    node *p = *head;
-    if(p->next != NULL)
-    {
-        printf("%d", p->node_num);
-        p = p->next;
-    }
-    while(p != NULL)
-    {
-        printf("-->%d", p->node_num);
-        p = p->next;
-    }
-    printf("\n");
-}
+// void PrintGraph(node **head)
+// {
+//     node *p = *head;
+//     if(p->next != NULL)
+//     {
+//         printf("%d", p->node_num);
+//         p = p->next;
+//     }
+//     while(p != NULL)
+//     {
+//         printf("-->%d", p->node_num);
+//         p = p->next;
+//     }
+//     printf("\n");
 
-void FreeEdge(node *sorce)
-{
-    sorce->edges = NULL;
-}
+//     free(p);
+// }
 
 void DeleteEdges(node **head, int NodeToDelte)
 {
     node *current_edge = *head;
-    edge **tempHead;
+    edge **tempHead = NULL;
 
-    while (current_edge != NULL ) {
+    while (current_edge != NULL ) 
+    {
         tempHead = &current_edge->edges;
         DeleteSingleEdge(tempHead, NodeToDelte);
         current_edge = current_edge->next;
     }
+
+    free(current_edge);
+    tempHead = NULL;
+    free(tempHead);
 }
 
 void DeleteNode(node **head, int NodeToDelete)
@@ -122,37 +127,6 @@ void DeleteSingleEdge(edge **head, int NodeToDelete)
     free(temp);
 }
 
-// void deleteGraph_cmd(node **head) 
-// {
-//     if(*head == NULL)
-//     {
-//         return;
-//     }
-
-
-
-//     node *currentNode = *head;
-//     node *nextNode;
-
-//     // while (currentNode != NULL) {
-//     //     edge *currentEdge = NULL;
-//     //     currentEdge = currentNode->edges;
-//     //     edge *nextEdge = NULL;
-        
-//     //     while(currentEdge != NULL) {
-//     //         nextEdge = currentEdge->next;
-//     //         free(currentEdge);
-//     //         currentEdge = nextEdge;
-//     //     }
-        
-//     //     nextNode = currentNode->next;
-//     //     free(currentNode);
-//     //     currentNode = nextNode;
-//     // }
-//     head = NULL;
-// }
-
-
 void deleteGraph_cmd(pnode* head){
     node *curr = *head;
  
@@ -162,4 +136,6 @@ void deleteGraph_cmd(pnode* head){
         free(curr); 
         curr=*head;
     }
+
+    free(curr);
 }

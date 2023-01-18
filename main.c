@@ -24,11 +24,14 @@ void printGraph(pnode head)
 void Do_B (node **Head, node *sorce)
 {
     int sorceEdge, EdgeTarget, weight;
+    node *temp = NULL;
+
     scanf("%d",&sorceEdge);
     sorce = FindPnode(Head, sorceEdge);
     if( sorce != NULL)
     {
-        FreeEdge(sorce);
+        DeleteEdges(Head, sorce->node_num);
+
         while(scanf("%d",&EdgeTarget) == 1)
         {
             scanf("%d",&weight);
@@ -38,7 +41,7 @@ void Do_B (node **Head, node *sorce)
     else
     {
         node *newEdge = NewNode(sorceEdge, NULL);
-        node *temp = *Head;
+        temp = *Head;
         while(temp->next != NULL)
         {
             temp = temp->next;
@@ -50,12 +53,17 @@ void Do_B (node **Head, node *sorce)
             UpdateEdge (Head, sorceEdge, EdgeTarget, weight);
         }
     }
+
+    temp = NULL;
+    free(temp);
+    
 }
 
 int main()
 {
     pnode *Head=(pnode*)malloc(sizeof(pnode));
     node *sorce =(node*)malloc(sizeof(node));
+
     char choice;
     int sorceEdge, EdgeTarget, weight;
     int numNode;
@@ -116,6 +124,7 @@ int main()
     // printMinWeight(Head);
 
     deleteGraph_cmd(Head);
+
     free(Head);
     free(sorce);
     return 0;
